@@ -1,9 +1,9 @@
 module.exports = {
-base:'/vuepress-test/tutorial/',
+base:'/CeliFormacion/tutorial/',
  configureWebpack: {
     resolve: {
       alias: {
-        '@alias': '/vuepress-test/tutorial/'
+        '@alias': '/CeliFormacion/tutorial/'
       }
     }
   },
