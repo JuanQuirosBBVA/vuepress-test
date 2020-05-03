@@ -5,9 +5,12 @@ set -e
 
 # build
 npm run build
+yarn docs:build
 
 # navigate into the build output directory
 cd dist
+mkdir tutorial
+cp -r ../docs/.vuepress/dist/* tutorial/
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME

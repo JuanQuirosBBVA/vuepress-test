@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <div v-html="input"></div>  
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios'
+
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+        input: null
+    }
+  },
+   created() {
+ this.loadFile()
+ },
+methods: {
+        loadFile() {
+          axios({
+            method: "get",
+            url: "./tutorial/index.html"
+          })
+            .then(result => {
+              this.input = result.data;
+              console.log("Data: " + result.data)
+            })
+            .catch(error => {
+              console.error("error getting file: " + error);
+            });
+        },
+      }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
