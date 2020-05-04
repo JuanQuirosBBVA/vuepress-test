@@ -18,7 +18,7 @@ export default {
         loadFile() {
           axios({
             method: "get",
-            url: "./tutorial/index.html"
+            url: "./tutorial/001.html"
           })
             .then(result => {
               this.input = result.data;
