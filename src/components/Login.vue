@@ -21,7 +21,7 @@
                   <v-text-field  v-model="password" prepend-icon="lock" name="password" label="Password" id="password" type="password" required  :rules="[v => !!v || 'Debes introducir una contraseña']"></v-text-field>
               </v-card-text>
               <v-layout align-center justify-center>
-                <v-btn type="submit" color="primary">Inicia Sesión</v-btn>
+                <v-btn type="submit" color="primary">Inicia Sesión2</v-btn>
               </v-layout>
                <v-layout mt-2 mb-2 pb-2 align-center justify-center>
                    <router-link  to="/forgotpassword" class="black--text" style="text-decoration: none;"><span> ¿No recuerdas tu contraseña? Haz click aquí</span></router-link>
@@ -48,11 +48,11 @@
 
 <script>
 
+
 export default {
 
   data() {
     return {
-      username: '',
       email: '',
       password: '',
       error: false
@@ -67,7 +67,11 @@ export default {
       if(this.$refs.form.validate()) {
         try {
           console.log('Logging in...', {icon: "fingerprint"});
-          await this.$auth.loginWith('local', {
+          const { email, password } = this
+          await this.$store.dispatch('AUTH_REQUEST', { email, password }).then(() => {
+              this.$router.push('/')
+          })
+          /*await this.$auth.loginWith('local', {
             data: {
               email: this.email,
               password: this.password
@@ -82,6 +86,7 @@ export default {
             localStorage.setItem('redirect', this.$route.path)
           }*/
         } catch (e) {        
+            console.log(e)
             console.log('Username or Password wrong', {icon: "error"});
         }
       }

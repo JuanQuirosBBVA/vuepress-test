@@ -19,42 +19,5 @@
 
 export default {
 
-  data() {
-    return {
-      username: '',
-      email: '',
-      password: '',
-      error: false
-    }
-  },
-
-  methods: {
-    validateField () {
-        this.$refs.form.validate()
-     },
-    async login() {
-      if(this.$refs.form.validate()) {
-        try {
-          console.log('Logging in...', {icon: "fingerprint"});
-          await this.$auth.loginWith('local', {
-            data: {
-              email: this.email,
-              password: this.password
-            }
-          }).catch(e => {
-            console.log('Failed Logging In' + e, {icon: "error_outline"});
-            this.error = true;
-            this.password = null;
-          });
-         /* if ($store.state.auth.user && $store.state.auth.user.firstName != null) {
-            console.log('Successfully Logged In', {icon: "done"});
-            localStorage.setItem('redirect', this.$route.path)
-          }*/
-        } catch (e) {        
-            console.log('Username or Password wrong', {icon: "error"});
-        }
-      }
-    }
-  }
 }
 </script>

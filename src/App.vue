@@ -7,9 +7,10 @@
       color="white"
       elevation="0"
     >
-       <router-link to="/"><span class="title ml-3 mr-5">Escuela&nbsp;<span class="font-weight-light">Celicidad</span></span></router-link>
+       <router-link to="/"><span class="title ml-3 mr-5">Escuela&nbsp;<span class="font-weight-light">Celicidad {{$store.state.user}} {{this.drawer}}</span></span></router-link>
       <v-spacer></v-spacer>
-       <router-link to="/login"><span class="title ml-3 mr-5">Inicia Sesión</span></router-link>
+       <router-link v-if='!logged' to="/login"><span class="title ml-3 mr-5">Inicia Sesión {{this.authSt}}</span></router-link>
+       <router-link v-if='logged' to="/login"><span class="title ml-3 mr-5">Sesión iniciada {{this.authSt}}</span></router-link>
     </v-app-bar>
 
     <v-content class="white">
@@ -20,29 +21,36 @@
 
 <script>
 
-  export default {
-    props: {
-      source: String,
+import store from './vuex'
+
+export default {
+    computed: {
+      user() {
+         return store.getters.getUser;
+      },
+      isAuthenticated(){
+        return store.getters.isAuthenticated;
+      }},
+    mounted() {
+      console.log("hi")
+      console.log(!store.getters.isAuthenticated)
+      console.log(store.getters.user)
     },
     data: () => ({
-      drawer: null,
-      items: [
-        { icon: 'lightbulb_outline', text: 'Notes' },
-        { icon: 'touch_app', text: 'Reminders' },
-        { divider: true },
-        { heading: 'Labels' },
-        { icon: 'add', text: 'Create new label' },
-        { divider: true },
-        { icon: 'archive', text: 'Archive' },
-        { icon: 'delete', text: 'Trash' },
-        { divider: true },
-        { icon: 'settings', text: 'Settings' },
-        { icon: 'chat_bubble', text: 'Trash' },
-        { icon: 'help', text: 'Help' },
-        { icon: 'phonelink', text: 'App downloads' },
-        { icon: 'keyboard', text: 'Keyboard shortcuts' },
-      ]
-  })}
+      authSt: null,
+      logged: store.getters.isAuthenticated,
+      drawer: 1,
+  }),
+   watch: {
+    user(newValue, oldValue) {
+      console.log(`Updating from ${oldValue} to ${newValue}`);
+      this.authSt = newValue
+    },
+    isAuthenticated(newValue, oldValue) {
+      console.log(`Updating from ${oldValue} to ${newValue}`);
+      this.logged = newValue
+    },
+  },}
 </script>
 
 <style>
