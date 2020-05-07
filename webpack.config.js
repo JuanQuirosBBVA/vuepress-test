@@ -2,6 +2,9 @@
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
+const ASSET_PATH = '/CeliFormacion/';
+
+
 module.exports = {
   plugins: [
     new VuetifyLoaderPlugin({
@@ -12,4 +15,7 @@ module.exports = {
         }
       })
   ],
+  output: {
+    publicPath: ASSET_PATH,
+    },
 }
