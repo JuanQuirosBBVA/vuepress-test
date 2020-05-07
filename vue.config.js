@@ -1,9 +1,6 @@
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/CeliFormacion/'
-    : '/',
   configureWebpack: {
       plugins: [
         new VuetifyLoaderPlugin({
@@ -14,5 +11,13 @@ module.exports = {
           }
         })
       ],
+      output: {
+        publicPath: process.env.NODE_ENV === 'production'
+        ? '/CeliFormacion/'
+        : '/'
+      }
   },
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/CeliFormacion/'
+    : '/'
 }
